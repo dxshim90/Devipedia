@@ -8,6 +8,7 @@ const connectDB = async () => {
     await mongoose.connect(
       db,
       {
+        useCreateIndex: true,
         useNewUrlParser: true
       }
     );
