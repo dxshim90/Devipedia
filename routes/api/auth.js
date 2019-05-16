@@ -7,15 +7,15 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 const { check, validationResult } = require("express-validator/check");
 
-router.get("/", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id);
-    res.json(user);
-  } catch (err) {
-    console.log(err.message);
-    res.send("Server error;");
-  }
-});
+// router.get("/", auth, async (req, res) => {
+//   try {
+//     const user = await User.findById(req.user.id);
+//     res.json(user);
+//   } catch (err) {
+//     console.log(err.message);
+//     res.send("Server error;");
+//   }
+// });
 
 router.post(
   "/",
