@@ -28,7 +28,7 @@ router.post(
       if (user) {
         return res
           .status(400)
-          .json({ errors: [{ msg: "User already registered" }] });
+          .json({ errors: [{ message: "User already registered" }] });
       }
       user = new User({
         name: req.body.name,
