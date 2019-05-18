@@ -9,7 +9,8 @@ const connectDB = async () => {
       db,
       {
         useCreateIndex: true,
-        useNewUrlParser: true
+        useNewUrlParser: true,
+        useFindAndModify: false
       }
     );
     console.log("Database Connected");
