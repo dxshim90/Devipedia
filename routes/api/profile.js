@@ -23,7 +23,7 @@ router.get("/me", auth, async (req, res) => {
   }
 });
 
-//update a profile
+//update and create a profile
 router.post(
   "/",
   [
@@ -194,5 +194,22 @@ router.put(
     }
   }
 );
+
+//delete experience
+router.delete("/experience/:exp_id", auth, async (req, res) => {
+  try {
+    debugger;
+    const profile = await Profile.findOne({ user: req.user.id });
+    const experience = profile.experience.map(exp => {
+      exp.id === req.params.exp_id;
+    });
+    profile.experience.splice(experience, 1);
+    await profile.save();
+    res.json(profile);
+  } catch (error) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
 
 module.exports = router;
