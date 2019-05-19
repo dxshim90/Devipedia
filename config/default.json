@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://dan123:dan123@devipedia-6tyna.mongodb.net/test?retryWrites=true",
-  "jwtSecret": "Shhhhhh"
+  "jwtSecret": "Shhhhhh",
+  "githubClientID": "ebf9e26869c9ba0c343a",
+  "githubSecret": "c949089a937fed99bc6c6c902d95d9b118ddc222"
 }
