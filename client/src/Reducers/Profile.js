@@ -1,30 +1,43 @@
+
+
 const initialState = {
   profile: null,
   profiles: [],
-  repos: [],
-  loading: true,
-  errors: {}
+  error: {}
 };
 
 export default function(state = initialState, action) {
-  switch (action.type) {
+  const { type, payload } = action;
+
+  switch (type) {
     case "GET_PROFILE":
+    case "UPDATE_PROFILE":
       return {
         ...state,
-        profile: action.payload,
-        loading: false
+        profile: payload,
+
+      };
+    case "GET_PROFILES":
+      return {
+        ...state,
+        profiles: payload,
+
       };
     case "PROFILE_ERROR":
       return {
         ...state,
-        error: action.payload
+        error: payload,
       };
     case "CLEAR_PROFILE":
       return {
         ...state,
         profile: null,
         repos: [],
-        loading: false
+      };
+    case "GET_REPOS":
+      return {
+        ...state,
+        repos: payload,
       };
     default:
       return state;
