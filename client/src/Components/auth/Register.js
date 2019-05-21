@@ -1,5 +1,9 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { setAlert } from "../../Actions/alert.js";
+import { register } from "../../Actions/auth.js";
+import PropTypes from "prop-types";
 
 class Register extends Component {
   state = {
@@ -16,38 +20,24 @@ class Register extends Component {
     const currentState = formData;
     const { name, value } = e.target;
     currentState[name] = value;
-
     this.setState({ formData: currentState });
   }
-
   onSubmit = async e => {
     e.preventDefault();
     if (this.state.formData.password !== this.state.formData.password2) {
-      alert("Passwords do not match");
+      this.props.setAlert("Passwords do not match", "error");
     } else {
-      const { name, email, password } = this.state.formData;
-      const newUser = {
-        name,
-        email,
-        password
-      };
-      try {
-        const config = {
-          headers: { "Content-Type": "Application/json" }
-        };
-        const body = JSON.stringify(newUser);
-
-        const response = await axios.post("/api/users", body, config);
-        console.log(response.data);
-      } catch (error) {
-        console.log(error.response.data);
-      }
+      const { name, password, email } = this.state.formData;
+      this.props.register({ name, email, password });
     }
   };
 
-  render() {
+  render(props) {
+    if (this.props.isAuth) {
+      return <Redirect to="/dashboard" />;
+    }
     return (
-      <section class="container">
+      <section className="container">
         <h1 className="large text-primary">Sign Up</h1>
         <p className="lead">
           <i className="fas fa-user" /> Create Your Account
@@ -60,7 +50,6 @@ class Register extends Component {
               name="name"
               value={this.state.formData.name}
               onChange={e => this.onChange(e)}
-              required
             />
           </div>
           <div className="form-group">
@@ -70,7 +59,6 @@ class Register extends Component {
               name="email"
               value={this.state.formData.email}
               onChange={e => this.onChange(e)}
-              required
             />
           </div>
           <div className="form-group">
@@ -78,7 +66,6 @@ class Register extends Component {
               type="password"
               placeholder="Password"
               name="password"
-              minLength="6"
               value={this.state.formData.password}
               onChange={e => this.onChange(e)}
             />
@@ -88,7 +75,6 @@ class Register extends Component {
               type="password"
               placeholder="Confirm Password"
               name="password2"
-              minLength="6"
               value={this.state.formData.password2}
               onChange={e => this.onChange(e)}
             />
@@ -96,11 +82,24 @@ class Register extends Component {
           <input type="submit" className="btn btn-primary" value="Register" />
         </form>
         <p className="my-1">
-          Already have an account? <a href="login.html">Sign In</a>
+          Already have an account? <Link to="/login">Sign In</Link>
         </p>
       </section>
     );
   }
 }
 
-export default Register;
+Register.propTypes = {
+  setAlert: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+  isAuth: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  isAuth: state.auth.isAuth
+});
+
+export default connect(
+  mapStateToProps,
+  { setAlert, register }
+)(Register);

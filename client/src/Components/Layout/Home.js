@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 class Home extends Component {
   render() {
+    if (this.props.isAuth) {
+      return <Redirect to="/Dashboard" />;
+    }
     return (
       <section className="home">
         <div className="dark-overlay">
@@ -27,4 +32,12 @@ class Home extends Component {
   }
 }
 
-export default Home;
+Home.propTypes = {
+  isAuth: PropTypes.bool
+};
+
+const mapStateToProps = state => ({
+  isAuth: state.auth.isAuth
+});
+
+export default connect(mapStateToProps)(Home);
