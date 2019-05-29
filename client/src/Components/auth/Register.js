@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { setAlert } from '../../actions/alert';
-import { register } from '../../actions/auth';
+import { setAlert } from '../../Actions/alert';
+import { register } from '../../Actions/auth';
 import PropTypes from 'prop-types';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
@@ -32,12 +32,14 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   }
 
   return (
-    <Fragment>
-      <h1 className='large text-primary'>Sign Up</h1>
-      <p className='lead'>
+    <div className='register-block'>
+      <div>
+      <h1>Sign Up</h1>
+      <p >
         <i className='fas fa-user' /> Create Your Account
       </p>
-      <form className='form' onSubmit={e => onSubmit(e)}>
+    </div>
+      <form className='form-group' onSubmit={e => onSubmit(e)}>
         <div className='form-group'>
           <input
             type='text'
@@ -76,10 +78,10 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />
       </form>
-      <p className='my-1'>
+      <p>
         Already have an account? <Link to='/login'>Sign In</Link>
       </p>
-    </Fragment>
+    </div>
   );
 };
 

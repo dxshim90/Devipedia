@@ -129,6 +129,25 @@ export const addExperience = (formData, history) => async dispatch => {
   }
 };
 
+// Delete experience
+export const deleteExperience = id => async dispatch => {
+  try {
+    const res = await axios.delete(`/api/profile/experience/${id}`);
+
+    dispatch({
+      type: "UPDATE_PROFILE",
+      payload: res.data
+    });
+
+    dispatch(setAlert('Experience Removed', 'success'));
+  } catch (err) {
+    dispatch({
+      type: "PROFILE_ERROR",
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
 
 // Delete account & profile
 export const deleteAccount = () => async dispatch => {
@@ -146,5 +165,39 @@ export const deleteAccount = () => async dispatch => {
         payload: { msg: err.response.statusText, status: err.response.status }
       });
     }
+  }
+};
+
+// Get Github repos
+export const getGithubRepos = username => async dispatch => {
+  try {
+    const res = await axios.get(`/api/profile/github/${username}`);
+
+    dispatch({
+      type: "GET_REPOS",
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: "PROFILE_ERROR",
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
+  }
+};
+
+export const getGithubImage = username => async dispatch => {
+  try {
+    debugger
+    const res = await axios.get(`/api/profile/github/users/${username}`);
+
+    dispatch({
+      type: "GET_IMAGE ",
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: "PROFILE_ERROR",
+      payload: { msg: err.response.statusText, status: err.response.status }
+    });
   }
 };

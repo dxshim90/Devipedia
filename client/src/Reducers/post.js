@@ -35,17 +35,19 @@ export default function(state = initialState, action) {
         ...state,
         error: payload,
       };
-    case "UPDATE_LIKES":
+      case "UPDATE_LIKES":
       return {
         ...state,
         posts: state.posts.map(post =>
           post._id === payload.id ? { ...post, likes: payload.likes } : post
         ),
+        loading: false
       };
     case "ADD_COMMENT":
       return {
         ...state,
         post: { ...state.post, comments: payload },
+        loading: false
       };
     case "REMOVE_COMMENT":
       return {
@@ -55,9 +57,9 @@ export default function(state = initialState, action) {
           comments: state.post.comments.filter(
             comment => comment._id !== payload
           )
-        },
-      };
-    default:
+        }
+      }
+        default:
       return state;
   }
 }

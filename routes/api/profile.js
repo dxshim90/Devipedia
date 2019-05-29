@@ -16,7 +16,7 @@ router.get('/me', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id }).populate(
       'user',
-      ['name', 'avatar']
+      ['name']
     );
 
     if (!profile) {
@@ -350,6 +350,33 @@ router.get('/github/:username', (req, res) => {
       method: 'GET',
       headers: { 'user-agent': 'node.js' }
     };
+    request(options, (error, response, body) => {
+      if (error) console.error(error);
+
+      if (response.statusCode !== 200) {
+        return res.status(404).json({ msg: 'No Github profile found' });
+      }
+
+      res.json(JSON.parse(body));
+    });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+// @route    GET api/profile/github/:username
+// @desc     Get user image from Github
+// @access   Public
+router.get('/github/users/:username', (req, res) => {
+  try {
+    const options = {
+      uri: `https://api.github.com/users/${
+        req.params.username
+      }?client_id=ebf9e26869c9ba0c343a&client_secret=c949089a937fed99bc6c6c902d95d9b118ddc222`,
+      method: 'GET',
+      headers: { 'user-agent': 'node.js' }
+    };
 
     request(options, (error, response, body) => {
       if (error) console.error(error);
@@ -365,5 +392,7 @@ router.get('/github/:username', (req, res) => {
     res.status(500).send('Server Error');
   }
 });
+
+
 
 module.exports = router;

@@ -3,23 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
-import { getPosts } from '../../actions/post';
+import { getPosts } from '../../Actions/post';
 
-const Posts = ({ getPosts, post: { posts } }) => {
+const Posts = ({ getPosts, post: { posts }, profile: { profile } }) => {
   useEffect(() => {
     getPosts();
   }, [getPosts]);
 
   return (
     <Fragment>
-      <h1>Posts</h1>
-      <p>
+      <h1 className='large text-primary'>Posts</h1>
+      <p className='lead'>
         <i className='fas fa-user' /> Welcome to the community
       </p>
       <PostForm />
-      <div>
+      <div className='posts'>
         {posts.map(post => (
-          <PostItem key={post._id} post={post} />
+          <PostItem key={post._id} post={post} profile={profile} />
         ))}
       </div>
     </Fragment>
@@ -28,11 +28,13 @@ const Posts = ({ getPosts, post: { posts } }) => {
 
 Posts.propTypes = {
   getPosts: PropTypes.func.isRequired,
-  post: PropTypes.object.isRequired
+  post: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  post: state.post
+  post: state.post,
+  profile: state.profile
 });
 
 export default connect(

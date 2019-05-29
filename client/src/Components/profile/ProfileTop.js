@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { getGithubImage } from '../../Actions/Profile';
+import axios from 'axios'
 
 const ProfileTop = ({
   profile: {
@@ -8,12 +10,25 @@ const ProfileTop = ({
     location,
     website,
     social,
-    user: { name, avatar }
+    user: { name },
+    githubusername,
+
   }
 }) => {
+
+  const [data, setData] = useState({imageURL : ''});
+
+  useEffect(() => {
+    const fetchData = async () => {
+  const result = await axios(`http://localhost:3000/api/profile/github/users/${githubusername}`,)
+  setData(result.data);
+}
+fetchData()
+  },[]);
+
   return (
     <div>
-      <img  src='' alt='' />
+      <img  src={data.avatar_url} alt='' />
       <h1>{name}</h1>
       <p>
         {status} {company && <span> at {company}</span>}

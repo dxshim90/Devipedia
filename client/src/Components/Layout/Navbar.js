@@ -2,12 +2,13 @@ import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { logout } from '../../actions/auth';
+import { logout } from '../../Actions/auth';
 
 const Navbar = ({ auth: { isAuthenticated }, logout }) => {
   const authLinks = (
     <ul>
       <li>
+
         <Link to='/profiles'>Developers</Link>
       </li>
       <li>
@@ -15,13 +16,12 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
       </li>
       <li>
         <Link to='/dashboard'>
-          <i className='fas fa-user' />{' '}
+
           <span>Dashboard</span>
         </Link>
       </li>
       <li>
         <a onClick={logout} href='#!'>
-          <i className='fas fa-sign-out-alt' />{' '}
           <span>Logout</span>
         </a>
       </li>
@@ -31,28 +31,30 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
   const guestLinks = (
     <ul>
       <li>
-        <Link to='/profiles'>Developers</Link>
+        <Link className='btn-nav' to='/profiles'>Developers</Link>
       </li>
       <li>
-        <Link to='/register'>Register</Link>
+        <Link className='btn-nav' to='/register'>Register</Link>
       </li>
       <li>
-        <Link to='/login'>Login</Link>
+        <Link className='btn-nav' to='/login'>Login</Link>
       </li>
     </ul>
   );
 
   return (
-    <nav>
-      <h1>
-        <Link to='/'>
-          <i className='fas fa-code' /> Devconnect
+    <div >
+    <nav className="nav-con">
+      <h1 className='logo'>
+        <Link  to='/'>
+          <i class="fas fa-terminal"></i> DevConnect
         </Link>
       </h1>
       {(
-        <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+        <div className="nav-links">{isAuthenticated ? authLinks : guestLinks}</div>
       )}
     </nav>
+  </div>
   );
 };
 

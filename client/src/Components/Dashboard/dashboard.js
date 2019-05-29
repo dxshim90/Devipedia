@@ -1,9 +1,12 @@
-import React, { Fragment, useEffect } from 'react';
+
+import React, { Fragment, useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DashboardActions from './DashboardActions';
-import { getCurrentProfile, deleteAccount } from '../../actions/profile';
+import Experience from './Experience';
+import { getCurrentProfile, deleteAccount } from '../../Actions/Profile';
+import axios from "axios"
 
 const Dashboard = ({
   getCurrentProfile,
@@ -15,16 +18,23 @@ const Dashboard = ({
     getCurrentProfile();
   }, [getCurrentProfile]);
 
-  return profile !== null ? (
 
+  return (
     <Fragment>
-      <h1>Dashboard</h1>
-      <p >
+      <h1 className='large text-primary'>Dashboard</h1>
+      <p className='lead'>
         <i className='fas fa-user' /> Welcome {user && user.name}
       </p>
+      {profile !== null ? (
+        <Fragment>
           <DashboardActions />
-          <div>
-            <button onClick={() => deleteAccount()}>
+
+        {profile.experience !== null ? <Experience experience={profile.experience} /> : <div>test</div>}
+
+
+
+          <div className='my-2'>
+            <button className='btn btn-danger' onClick={() => deleteAccount()}>
               <i className='fas fa-user-minus' /> Delete My Account
             </button>
           </div>
@@ -32,11 +42,14 @@ const Dashboard = ({
       ) : (
         <Fragment>
           <p>You have not yet setup a profile, please add some info</p>
-          <Link to='/create-profile'>
+          <Link to='/create-profile' className='btn btn-primary my-1'>
             Create Profile
           </Link>
         </Fragment>
       )}
+    </Fragment>
+  );
+};
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,

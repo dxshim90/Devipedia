@@ -1,13 +1,13 @@
 import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Navbar from './components/layout/Navbar';
-import Landing from './components/layout/Landing';
-import Routes from './components/routing/Routes';
+import Navbar from './Components/Layout/Navbar';
+import Landing from './Components/Layout/Landing';
+import Routes from './Components/Routing/Routes';
 
 // Redux
 import { Provider } from 'react-redux';
 import store from './store';
-import { loadUser } from './actions/auth';
+import { loadUser } from './Actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
@@ -27,7 +27,7 @@ const App = () => {
         <Fragment>
           <Navbar />
           <Switch>
-            <Route exact path='/' component={Landing} />
+            <Route exact path='/' render={routerProps => <Landing {...routerProps} />} />
             <Route component={Routes} />
           </Switch>
         </Fragment>
