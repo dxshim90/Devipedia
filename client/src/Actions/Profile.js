@@ -185,6 +185,8 @@ export const getGithubRepos = username => async dispatch => {
   }
 };
 
+//Get Github Picture
+
 export const getGithubImage = username => async dispatch => {
   try {
     debugger
