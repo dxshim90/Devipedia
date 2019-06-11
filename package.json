@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Network for devs",
   "engines": {
-    "node": "12.2.0"
+    "node": "12.2.0",
+    "npm": "6.9.0"
   },
   "main": "server.js",
   "scripts": {
