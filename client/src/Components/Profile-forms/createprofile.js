@@ -103,7 +103,7 @@ const CreateProfile = ({ createProfile, history }) => {
             onChange={e => onChange(e)}
           />
           <small>
-            City & state suggested (eg. Boston, MA)
+            City
           </small>
         </div>
         <div>
@@ -121,10 +121,11 @@ const CreateProfile = ({ createProfile, history }) => {
         <div>
           <input
             type='text'
-            placeholder='Github Username'
+            placeholder='*Github Username'
             name='githubusername'
             value={githubusername}
             onChange={e => onChange(e)}
+            required
           />
           <small>
             If you want your latest repos and a Github link, include your
