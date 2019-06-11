@@ -1,6 +1,9 @@
 {
   "name": "devipedia",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.2.0"
+  },
   "description": "Network for devs",
   "main": "server.js",
   "scripts": {
