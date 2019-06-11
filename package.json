@@ -8,8 +8,7 @@
     "server": "nodemon server",
     "client": "npm start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild":
-      "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuid": "cross-env NODE_ENV=production WEBPACK_CONFIG=browser_prod,server_prod webpack --colors"
   },
   "repository": {
     "type": "git",
@@ -32,10 +31,10 @@
     "redux": "^4.0.1",
     "request": "^2.88.0",
     "semantic-ui-css": "^2.4.1",
-    "semantic-ui-react": "^0.87.1"
+    "semantic-ui-react": "^0.87.1",
+    "concurrently": "^4.1.0"
   },
   "devDependencies": {
-    "concurrently": "^4.1.0",
     "nodemon": "^1.19.0"
   }
 }
